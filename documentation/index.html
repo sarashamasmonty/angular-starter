@@ -8,13 +8,65 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
-	      <link rel="stylesheet" href="./styles/style.css">
+	   <link rel="stylesheet" href="./styles/style.css">
+        <link rel="stylesheet" href="./styles/dark.css">
     </head>
     <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
 
-        <div class="navbar navbar-default navbar-fixed-top visible-xs">
-            <a href="./" class="navbar-brand">angular-starter documentation</a>
-            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="./" class="navbar-brand">angular-starter documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
         </div>
 
         <div class="xs-menu menu" id="mobile-menu">
@@ -23,27 +75,106 @@
 
         <div class="container-fluid main">
            <div class="row main">
-               <div class="hidden-xs menu">
+               <div class="d-none d-md-block menu">
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
                <div class="content getting-started">
                    <div class="content-data">
 
-<h1 id="angularstarter">AngularStarter</h1>
-<p>This project was generated with <a href="https://github.com/angular/angular-cli">Angular CLI</a> version 9.1.6.</p>
-<h2 id="development-server">Development server</h2>
-<p>Run <code>ng serve</code> for a dev server. Navigate to <code>http://localhost:4200/</code>. The app will automatically reload if you change any of the source files.</p>
-<h2 id="code-scaffolding">Code scaffolding</h2>
-<p>Run <code>ng generate component component-name</code> to generate a new component. You can also use <code>ng generate directive|pipe|service|class|guard|interface|enum|module</code>.</p>
-<h2 id="build">Build</h2>
-<p>Run <code>ng build</code> to build the project. The build artifacts will be stored in the <code>dist/</code> directory. Use the <code>--prod</code> flag for a production build.</p>
-<h2 id="running-unit-tests">Running unit tests</h2>
-<p>Run <code>ng test</code> to execute the unit tests via <a href="https://karma-runner.github.io">Karma</a>.</p>
-<h2 id="running-end-to-end-tests">Running end-to-end tests</h2>
-<p>Run <code>ng e2e</code> to execute the end-to-end tests via <a href="http://www.protractortest.org/">Protractor</a>.</p>
-<h2 id="further-help">Further help</h2>
-<p>To get more help on the Angular CLI use <code>ng help</code> or go check out the <a href="https://github.com/angular/angular-cli/blob/master/README.md">Angular CLI README</a>.</p>
+<p><img src="https://user-images.githubusercontent.com/7531596/128626297-df86020b-1cdc-43b5-a692-6c4c45534ec1.png" alt="Angular Starter Banner" class="img-responsive"></p>
+<p><strong>Kickstart your next enterprise-grade Angular project with this robust, feature-rich starter template.</strong><br>Designed to save you time and effort, this boilerplate provides everything you need to build scalable, maintainable, and high-quality Angular applications.</p>
+<h2>Why Choose This Starter? 🌟</h2>
+<p>This project is more than just a boilerplate – it&#39;s a <strong>production-ready foundation</strong> packed with modern tools and best practices. Whether you&#39;re building a small app or a large-scale enterprise solution, this starter has you covered.</p>
+<h2>Features 🛠️</h2>
+<p>✅ <strong>Latest Angular 20</strong> – Stay up-to-date with the newest Angular features.<br>✅ <strong>Angular Material</strong> – Build beautiful, responsive UIs with Material Design.<br>✅ <strong>Unit Testing with Jest</strong> – Fast and reliable testing for your components.<br>✅ <strong>End-to-End Testing with Cypress</strong> – Ensure your app works flawlessly from start to finish.<br>✅ <strong>Internationalization with Transloco</strong> – Easily support multiple languages.<br>✅ <strong>Auto Documentation with Compodoc</strong> – Keep your codebase well-documented.<br>✅ <strong>Component Examples with Storybook</strong> – Showcase and test your components in isolation.<br>✅ <strong>Bundle Analysis with Source Map Explorer</strong> – Optimize your app&#39;s performance.<br>✅ <strong>Docker Support</strong> – Simplify deployment and containerization.<br>✅ <strong>Code Quality Tools</strong> – ESLint, Prettier, and Commit Linting for clean, consistent code.<br>✅ <strong>Security Audits with AuditJS</strong> – Keep your dependencies secure.<br>✅ <strong>Auto-Generated CHANGELOG</strong> – Track changes effortlessly with auto-changelog.<br>✅ <strong>Tailwind CSS Integration</strong> – Utilize a utility-first CSS framework to create sleek, responsive designs efficiently.</p>
+<h2>Quick Start 🚀</h2>
+<h3>Installation</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash"># Clone the repository
+git clone https://github.com/wlucha/angular-starter
+cd angular-starter
+
+# Install dependencies
+npm install --force
+
+# Start the development server
+npm run start
+
+# Open your browser at http://localhost:4200</code></pre></div><h3>Docker Deployment</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash"># Build the Docker image
+docker build . -t angular-starter
+
+# Run the Docker container
+docker run -p 3000:80 angular-starter</code></pre></div><h2>Demo &amp; Deployment 🖥️</h2>
+<ul>
+<li><strong>Live Demo</strong>: <a href="https://stackblitz.com/github/wlucha/angular-starter">Check it out on StackBlitz</a>  </li>
+<li><strong>Deploy to Heroku</strong>: <a href="https://heroku.com/deploy"><img src="https://www.herokucdn.com/deploy/button.png" alt="Deploy to Heroku" class="img-responsive"></a></li>
+</ul>
+<h2>Commands Overview 📜</h2>
+<p>Here are some of the most useful commands:</p>
+<table class="table table-bordered compodoc-table">
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>npm run start</code></td>
+<td>Start the development server.</td>
+</tr>
+<tr>
+<td><code>npm run lint</code></td>
+<td>Lint the project for code quality.</td>
+</tr>
+<tr>
+<td><code>npm run test</code></td>
+<td>Run unit tests with Jest.</td>
+</tr>
+<tr>
+<td><code>npm run build</code></td>
+<td>Build the project for production.</td>
+</tr>
+<tr>
+<td><code>npm run compodoc</code></td>
+<td>Generate documentation with Compodoc.</td>
+</tr>
+<tr>
+<td><code>npm run storybook</code></td>
+<td>Launch Storybook for component examples.</td>
+</tr>
+<tr>
+<td><code>npm run audit</code></td>
+<td>Audit dependencies for security vulnerabilities.</td>
+</tr>
+<tr>
+<td><code>npm run prettier</code></td>
+<td>Format the entire project with Prettier.</td>
+</tr>
+</tbody>
+</table>
+<h2>Why You&#39;ll Love This Project ❤️</h2>
+<ul>
+<li><strong>Time-Saving</strong>: Skip the setup and focus on building your app.  </li>
+<li><strong>Best Practices</strong>: Built with industry standards in mind.  </li>
+<li><strong>Scalable</strong>: Perfect for small projects or large enterprise applications.  </li>
+<li><strong>Community-Driven</strong>: Regularly updated and maintained by the community.</li>
+</ul>
+<h2>Feature Requests &amp; Feedback 💡</h2>
+<p><strong>We love ideas!</strong> 🚀<br>If you have a feature request or improvement suggestion:  </p>
+<ul>
+<li>Open a <a href="https://github.com/wlucha/angular-starter/issues">new issue</a> with the <code>feature request</code> label.  </li>
+<li>Describe your idea clearly and provide context (e.g., <em>&quot;Why is this feature useful?&quot;</em>).</li>
+</ul>
+<h2>Show Your Support ⭐</h2>
+<p>If this project helps you, please give it a <strong>star</strong> on GitHub! Your support motivates us to keep improving and adding new features.</p>
+<p><a href="https://github.com/wlucha/angular-starter"><img src="https://img.shields.io/github/stars/wlucha/angular-starter?style=social" alt="GitHub Stars" class="img-responsive"></a></p>
+<h2>License 📄</h2>
+<p>This project is licensed under the <strong>MIT License</strong>. Feel free to use, modify, and distribute it as you see fit.</p>
+<h2>Contributors ✨</h2>
+<p>A big thanks to all the contributors who have helped make this project better! Want to contribute? Check out the <a href="CONTRIBUTING.md">Contribution Guidelines</a>.</p>
+<p><strong>Ready to build something amazing?</strong> Clone this repo and start coding today! 🚀</p>
 
 
 
@@ -58,14 +189,16 @@
 
 
 
-                   
+
+
+
 
 
 
 
                    </div><div class="search-results">
     <div class="has-results">
-        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
         <ul class="search-results-list"></ul>
     </div>
     <div class="no-results">
@@ -77,6 +210,15 @@
            </div>
        </div>
 
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 0;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'getting-started';
@@ -84,18 +226,30 @@
             var MAX_SEARCH_RESULTS = 15;
        </script>
 
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
        <script src="./js/libs/custom-elements.min.js"></script>
        <script src="./js/libs/lit-html.js"></script>
-       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
-       <script src="./js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+
        <script src="./js/menu-wc.js" defer></script>
+       <script nomodule src="./js/menu-wc_es5.js" defer></script>
 
        <script src="./js/libs/bootstrap-native.js"></script>
 
        <script src="./js/libs/es6-shim.min.js"></script>
        <script src="./js/libs/EventDispatcher.js"></script>
        <script src="./js/libs/promise.min.js"></script>
-       <script src="./js/libs/zepto.min.js"></script>
 
        <script src="./js/compodoc.js"></script>
 
